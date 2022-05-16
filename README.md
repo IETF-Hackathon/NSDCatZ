@@ -41,5 +41,5 @@ The first argument is the name of the pattern with which the new zone in the cat
 The second argument is the zone to be added or deleted.
 The first argument is also the name of the catalog zone.
 Furthermore, the scripts expect the catalog zone to be in the current directory.
-These scripts also assume `zonelistfile:`
+These scripts also assume `zonelistfile:` to be `"/var/db/nsd/zone.list"`.
 

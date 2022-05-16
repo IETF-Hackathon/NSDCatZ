@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+zonelistfile = '/var/db/nsd/zone.list'
+
 import os
 import sys
 import uuid
@@ -24,7 +26,7 @@ with open(catalog, 'r') as c:
 
 new_serial = serial if serial > cat_serial else cat_serial + 1
 zones = set()
-with open('/var/db/nsd/zone.list', 'r') as zl:
+with open(zonelistfile, 'r') as zl:
     for ln in zl:
         if not ln.startswith('add'):
             continue

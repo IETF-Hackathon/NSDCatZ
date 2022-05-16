@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+zonelistfile = '/var/db/nsd/zone.list'
+nsdcontrol = 'nsd-control'
+#nsdcontrol = '/usr/local/sbin/nsd-control'
+
 import os
 import sys
 
@@ -10,7 +14,7 @@ if len(sys.argv) != 2:
 catalog = sys.argv[1].lower()
 
 my_zones = set()
-with open('/var/db/nsd/zone.list', 'r') as zl:
+with open(zonelistfile, 'r') as zl:
     for ln in zl:
         if not ln.startswith('add'):
             continue
@@ -38,9 +42,9 @@ for ln in sys.stdin:
 
 print('Deleting zones: %s' % ' '.join(my_zones - catzones))
 for zone in my_zones - catzones:
-    os.system('/usr/local/sbin/nsd-control delzone %s' % zone)
+    os.system(nsdcontrol + ' delzone %s' % zone)
 
 print('Adding zones: %s' % ' '.join(catzones - my_zones))
 for zone in catzones - my_zones:
-    os.system('/usr/local/sbin/nsd-control addzone %s %s' % (zone, catalog))
+    os.system(nsdcontrol + ' addzone %s %s' % (zone, catalog))
 
